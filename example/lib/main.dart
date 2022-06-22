@@ -1,6 +1,7 @@
 
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
@@ -26,7 +27,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DateTime _selectedDate;
+  late DateTime _selectedDate;
 
   @override
   void initState() {
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(16),
               child: Text(
                 'Calendar Timeline',
-                style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.tealAccent[100]),
+                style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.tealAccent[100]),
               ),
             ),
             CalendarTimeline(
@@ -88,5 +89,10 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<DateTime>('_selectedDate', _selectedDate));
   }
 }
